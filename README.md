@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="node.png" height="110">
-</p>
-
 # BEW 1.3 - Server-Side Architectures & Frameworks
 
 <!-- omit in toc -->
