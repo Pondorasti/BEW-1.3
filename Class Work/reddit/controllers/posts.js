@@ -1,3 +1,4 @@
+import e from "express"
 import Post from "../models/post"
 
 module.exports = (app) => {
@@ -20,5 +21,17 @@ module.exports = (app) => {
     post.save((err, post) => {
       return res.redirect("/")
     })
+  })
+
+  // Show single Post
+  app.get("/posts/:id", (req, res) => {
+    Post.findById(req.params.id)
+      .lean()
+      .then((post) => {
+        res.render("posts-show", { post })
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
   })
 }
