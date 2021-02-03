@@ -3,7 +3,6 @@ import express from "express"
 import exphbs from "express-handlebars"
 import bodyParser from "body-parser"
 import expressValidator from "express-validator"
-import { body } from "express-validator/check"
 import "./data/reddit-db"
 
 // App Setup
@@ -38,3 +37,5 @@ require("./controllers/posts")(app)
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT} for now`)
 })
+
+export default app
