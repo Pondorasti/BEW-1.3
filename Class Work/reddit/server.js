@@ -25,7 +25,7 @@ app.use(expressValidator())
 // Routes
 
 app.get("/", (req, res) => {
-  res.render("home")
+  res.redirect("/posts/")
 })
 
 app.get("/posts/new", (req, res) => {
