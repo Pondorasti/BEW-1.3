@@ -34,4 +34,16 @@ module.exports = (app) => {
         console.log(error.message)
       })
   })
+
+  // Subreddit
+  app.get("/n/:subreddit", (req, res) => {
+    Post.find({ subreddit: req.params.subreddit })
+      .lean()
+      .then((posts) => {
+        res.render("posts-index", { posts })
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  })
 }

@@ -16,6 +16,7 @@ describe("Post", function () {
     title: "post title",
     url: "https://www.google.com",
     summary: "post summary",
+    subreddit: "yolo",
   }
 
   it("should create with valid attributes at POST /posts/new", function (done) {
