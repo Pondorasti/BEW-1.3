@@ -31,6 +31,7 @@ app.get("/posts/new", (req, res) => {
   res.render("posts-new")
 })
 require("./controllers/posts")(app)
+require("./controllers/comments")(app)
 
 // Start Server
 

@@ -1,4 +1,3 @@
-import e from "express"
 import Post from "../models/post"
 
 module.exports = (app) => {
@@ -27,7 +26,9 @@ module.exports = (app) => {
   app.get("/posts/:id", (req, res) => {
     Post.findById(req.params.id)
       .lean()
+      .populate("comments")
       .then((post) => {
+        console.log(post.comments)
         res.render("posts-show", { post })
       })
       .catch((error) => {
