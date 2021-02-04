@@ -3,6 +3,8 @@ import express from "express"
 import exphbs from "express-handlebars"
 import bodyParser from "body-parser"
 import expressValidator from "express-validator"
+import cookieParser from "cookie-parser"
+import jwt from "jsonwebtoken"
 import "./data/reddit-db"
 
 // App Setup
@@ -21,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(expressValidator())
 
+app.use(cookieParser())
+
 // Routes
 
 app.get("/", (req, res) => {
@@ -32,6 +36,7 @@ app.get("/posts/new", (req, res) => {
 })
 require("./controllers/posts")(app)
 require("./controllers/comments")(app)
+require("./controllers/auth")(app)
 
 // Start Server
 
