@@ -25,4 +25,9 @@ module.exports = (app) => {
         return res.status(400).send({ error })
       })
   })
+
+  app.get("/logout", (req, res) => {
+    res.clearCookie("nToken")
+    res.redirect("/")
+  })
 }
