@@ -30,4 +30,40 @@ module.exports = (app) => {
     res.clearCookie("nToken")
     res.redirect("/")
   })
+
+  app.get("/login", (req, res) => {
+    res.render("login")
+  })
+
+  app.post("/login", (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+
+    User.findOne({ username }, "username password")
+      .then((user) => {
+        if (!user) {
+          return res.status(401).send({ message: "Wrong username" })
+        }
+
+        user.comparePassword(password, (err, isMatch) => {
+          if (!isMatch) {
+            return res.status(401).send({ message: "Wrong password" })
+          }
+
+          const token = jwt.sign(
+            { _id: user._id, username: user.username },
+            process.env.SECRET,
+            {
+              expiresIn: "60 days",
+            }
+          )
+
+          res.cookie("nToken", token, { maxAge: 900000, httpOnly: true })
+          res.redirect("/")
+        })
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  })
 }
