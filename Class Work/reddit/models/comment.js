@@ -10,4 +10,9 @@ const CommentSchema = new Schema(
   { timestamps: { createdAt: "created_at" } }
 )
 
+CommentSchema.pre("find", function (next) {
+  this.populate("author")
+  next()
+})
+
 export default mongoose.model("Comment", CommentSchema)

@@ -4,6 +4,7 @@ import Comment from "../models/comment"
 module.exports = (app) => {
   app.post("/posts/:postId/comments", (req, res) => {
     const comment = new Comment(req.body)
+    comment.author = req.user
 
     comment
       .save()
@@ -15,7 +16,7 @@ module.exports = (app) => {
         return post.save()
       })
       .then(() => {
-        return res.redirect("/")
+        return res.redirect(`/posts/${req.params.postId}`)
       })
       .catch((error) => {
         console.log(error)
