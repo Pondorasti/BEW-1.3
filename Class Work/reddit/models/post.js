@@ -9,14 +9,21 @@ const PostSchema = new Schema(
     summary: { type: String, required: true },
     subreddit: { type: String, required: true },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: { createdAt: "created_at" } }
 )
 
-// PostSchema.pre("findById", function (next) {
-//   this.populate("comments")
-//   next()
-// })
+PostSchema.pre("find", function (next) {
+  this.populate("author")
+  next()
+})
+
+PostSchema.pre("findOne", function (next) {
+  this.populate("author")
+  this.populate("comments")
+  next()
+})
 
 const Post = mongoose.model("Post", PostSchema)
 

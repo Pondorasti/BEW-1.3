@@ -9,6 +9,7 @@ const UserSchema = new Schema(
     updatedAt: { type: Date },
     username: { type: String, require: true },
     password: { type: String, select: false },
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
   { timestamps: { createdAt: "created_at" } }
 )

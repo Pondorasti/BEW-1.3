@@ -1,4 +1,5 @@
 import Post from "../models/post"
+import User from "../models/user"
 
 module.exports = (app) => {
   // Show all Posts
@@ -27,17 +28,28 @@ module.exports = (app) => {
 
   app.post("/posts/new", (req, res) => {
     const post = new Post(req.body)
+    const user = req.user
+    post.author = user._id
 
-    post.save((err, post) => {
-      return res.redirect("/")
-    })
+    post
+      .save()
+      .then((req, res) => {
+        return User.findById(user._id)
+      })
+      .then((user) => {
+        user.posts.unshift(post)
+        user.save()
+        res.redirect(`/posts/${post._id}`)
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
   })
 
   // Show single Post
   app.get("/posts/:id", (req, res) => {
     Post.findById(req.params.id)
       .lean()
-      .populate("comments")
       .then((post) => {
         res.render("posts-show", { post })
       })
