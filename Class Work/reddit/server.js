@@ -25,15 +25,30 @@ app.use(expressValidator())
 
 app.use(cookieParser())
 
+const checkAuth = (req, res, next) => {
+  if (
+    typeof req.cookies.nToken === "undefined" ||
+    req.cookies.nToken === null
+  ) {
+    req.user = null
+  } else {
+    const token = req.cookies.nToken
+    const decodedToken = jwt.decode(token, { complete: true }) || {}
+    req.user = decodedToken.payload
+  }
+
+  res.locals.currentUser = req.user
+
+  next()
+}
+app.use(checkAuth)
+
 // Routes
 
 app.get("/", (req, res) => {
   res.redirect("/posts/")
 })
 
-app.get("/posts/new", (req, res) => {
-  res.render("posts-new")
-})
 require("./controllers/posts")(app)
 require("./controllers/comments")(app)
 require("./controllers/auth")(app)

@@ -13,7 +13,18 @@ module.exports = (app) => {
       })
   })
 
+  app.post("/posts/*", (req, res, next) => {
+    if (req.user) {
+      return next()
+    }
+    return res.status(401).send({ error: "Log in first" })
+  })
+
   // Create
+  app.get("/posts/new", (req, res) => {
+    res.render("posts-new")
+  })
+
   app.post("/posts/new", (req, res) => {
     const post = new Post(req.body)
 
@@ -28,7 +39,6 @@ module.exports = (app) => {
       .lean()
       .populate("comments")
       .then((post) => {
-        console.log(post.comments)
         res.render("posts-show", { post })
       })
       .catch((error) => {
