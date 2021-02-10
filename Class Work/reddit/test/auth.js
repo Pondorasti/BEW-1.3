@@ -1,9 +1,7 @@
 import app from "../server.js"
 import chai from "chai"
 import chaiHttp from "chai-http"
-
 import User from "../models/user"
-// const User = require("../models/user")
 
 const should = chai.should()
 chai.use(chaiHttp)

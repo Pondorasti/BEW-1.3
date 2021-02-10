@@ -3,14 +3,14 @@ import chai from "chai"
 import chaiHttp from "chai-http"
 
 import Post from "../models/post"
-import server from "../server"
+import User from "../models/user"
 
 const expect = chai.expect
 chai.should()
 chai.use(chaiHttp)
 
 describe("Post", function () {
-  const agent = chai.request.agent(server)
+  const agent = chai.request.agent(app)
 
   const newPost = {
     title: "post title",
@@ -18,6 +18,24 @@ describe("Post", function () {
     summary: "post summary",
     subreddit: "yolo",
   }
+
+  const user = {
+    username: "Test",
+    password: "1234",
+  }
+
+  before(function (done) {
+    agent
+      .post("/sign-up")
+      .set("content-type", "application/x-www-form-urlencoded")
+      .send(user)
+      .then(function (res) {
+        done()
+      })
+      .catch(function (err) {
+        done(err)
+      })
+  })
 
   it("should create with valid attributes at POST /posts/new", function (done) {
     Post.estimatedDocumentCount()
@@ -49,7 +67,21 @@ describe("Post", function () {
       })
   })
 
-  after(function () {
+  after(function (done) {
     Post.findOneAndDelete(newPost)
+      .then((post) => {
+        agent.close()
+
+        User.findOneAndDelete(user.username)
+          .then(function () {
+            done()
+          })
+          .catch(function (err) {
+            done(err)
+          })
+      })
+      .catch(function (err) {
+        done(err)
+      })
   })
 })
