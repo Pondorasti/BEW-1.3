@@ -18,7 +18,7 @@ module.exports = (app) => {
           expiresIn: "60 days",
         })
         res.cookie("nToken", token, { maxAge: 900000, httpOnly: true })
-        res.redirect("/")
+        return res.redirect("/")
       })
       .catch((error) => {
         console.log(error.message)

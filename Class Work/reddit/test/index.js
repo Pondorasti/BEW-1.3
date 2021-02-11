@@ -5,7 +5,7 @@ import chaiHttp from "chai-http"
 const should = chai.should()
 chai.use(chaiHttp)
 
-describe("site", function () {
+describe("Site", function () {
   it("Should have home page", function (done) {
     chai
       .request(app)
