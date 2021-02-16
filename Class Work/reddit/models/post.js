@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import Populate from "../util/autopopulate"
 
 const Schema = mongoose.Schema
 
@@ -14,16 +15,9 @@ const PostSchema = new Schema(
   { timestamps: { createdAt: "created_at" } }
 )
 
-PostSchema.pre("find", function (next) {
-  this.populate("author")
-  next()
-})
-
-PostSchema.pre("findOne", function (next) {
-  this.populate("author")
-  this.populate("comments")
-  next()
-})
+PostSchema.pre("findOne", Populate("author"))
+  .pre("findOne", Populate("comments"))
+  .pre("find", Populate("author"))
 
 const Post = mongoose.model("Post", PostSchema)
 

@@ -4,16 +4,16 @@ import Comment from "../models/comment"
 module.exports = (app) => {
   app.post("/posts/:postId/comments", (req, res) => {
     const comment = new Comment(req.body)
-    comment.author = req.user
+    comment.author = req.user._id
 
     comment
       .save()
       .then(() => {
-        return Post.findById(req.params.postId)
+        return Promise.all([Post.findById(req.params.postId)])
       })
-      .then((post) => {
+      .then(([post]) => {
         post.comments.unshift(comment)
-        return post.save()
+        return Promise.all([post.save()])
       })
       .then(() => {
         return res.redirect(`/posts/${req.params.postId}`)
