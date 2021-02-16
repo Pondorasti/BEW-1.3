@@ -30,6 +30,9 @@ module.exports = (app) => {
     const post = new Post(req.body)
     const user = req.user
     post.author = user._id
+    post.upVotes = []
+    post.downVotes = []
+    post.voteScore = 0
 
     post
       .save()
@@ -72,5 +75,26 @@ module.exports = (app) => {
       .catch((error) => {
         console.log(error.message)
       })
+  })
+
+  // Upvoting
+  app.put("/posts/:id/vote-up", (req, res) => {
+    Post.findByIdAndUpdate(req.params.id).exec(function (err, post) {
+      post.upVotes.push(req.user._id)
+      post.voteScore += 1
+      post.save()
+
+      res.status(200)
+    })
+  })
+
+  app.put("/posts/:id/vote-down", (req, res) => {
+    Post.findByIdAndUpdate(req.params.id).exec(function (err, post) {
+      post.downVotes.push(req.user._id)
+      post.voteScore -= 1
+      post.save()
+
+      res.status(200)
+    })
   })
 }

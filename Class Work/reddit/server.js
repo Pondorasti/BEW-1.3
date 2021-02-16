@@ -43,6 +43,9 @@ const checkAuth = (req, res, next) => {
 }
 app.use(checkAuth)
 
+// Look for public files
+app.use(express.static("public"))
+
 // Routes
 
 app.get("/", (req, res) => {
