@@ -52,6 +52,7 @@ app.get("/", (req, res) => {
 require("./controllers/posts")(app)
 require("./controllers/comments")(app)
 require("./controllers/auth")(app)
+require("./controllers/replies")(app)
 
 // Start Server
 
