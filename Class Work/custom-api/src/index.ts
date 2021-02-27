@@ -10,3 +10,5 @@ app.get("/hello/:name", helloHandler)
 app.listen(port, () => {
   console.log(`server is listening on ${port}`)
 })
+
+export default app
