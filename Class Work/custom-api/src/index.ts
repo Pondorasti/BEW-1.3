@@ -1,5 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
+import cors from "cors"
+import helmet from "helmet"
 import { rootHandler, helloHandler } from "./handlers"
 import router from "./routes"
 import "./config/databaseSetup"
@@ -11,6 +13,8 @@ const port = process.env.PORT || 8000 // Database Setup
 // Middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(helmet())
+app.use(cors())
 
 // Routes
 app.get("/", rootHandler)
