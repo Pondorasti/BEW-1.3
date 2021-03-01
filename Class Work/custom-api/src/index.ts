@@ -1,8 +1,10 @@
 import express from "express"
 import { rootHandler, helloHandler } from "./handlers"
 
+import "./config/databaseSetup"
+
 const app = express()
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000 // Database Setup
 
 app.get("/", rootHandler)
 app.get("/hello/:name", helloHandler)
