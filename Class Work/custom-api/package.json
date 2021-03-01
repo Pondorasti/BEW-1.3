@@ -27,6 +27,7 @@
   "dependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^8.2.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
   }
 }
