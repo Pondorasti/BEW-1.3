@@ -1,6 +1,6 @@
 import { Document } from "mongoose"
 
-export interface IcreCreamInterface extends Document {
+export interface IceCreamInterface extends Document {
   name: string
   imgUrl?: string
   tags?: string[]
@@ -11,5 +11,5 @@ export interface IcreCreamInterface extends Document {
 export interface VendorInterface extends Document {
   name: string
   foundedYear?: string
-  iceCreams: IcreCreamInterface["_id"]
+  iceCreams: IceCreamInterface["_id"]
 }

@@ -2,7 +2,7 @@ import express from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
 import helmet from "helmet"
-import { rootHandler, helloHandler } from "./handlers"
+import rootHandler from "./handlers"
 import router from "./routes"
 import "./config/databaseSetup"
 
@@ -18,7 +18,6 @@ app.use(cors())
 
 // Routes
 app.get("/", rootHandler)
-app.get("/hello/:name", helloHandler)
 app.use(router)
 
 // Start Server
