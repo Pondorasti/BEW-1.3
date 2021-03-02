@@ -1,13 +1,5 @@
-import mongoose, { Schema, Document, Types } from "mongoose"
-import { VendorInterface } from "./vendor"
-
-export interface IcreCreamInterface extends Document {
-  name: string
-  imgUrl?: string
-  tags?: string[]
-  rating: number
-  vendor: VendorInterface["_id"]
-}
+import mongoose, { Schema } from "mongoose"
+import { IceCreamInterface } from "./interfaces"
 
 const IceCreamSchema: Schema = new Schema({
   name: { type: String, required: true },
@@ -18,6 +10,6 @@ const IceCreamSchema: Schema = new Schema({
   vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
 })
 
-const IceCream = mongoose.model<IcreCreamInterface>("IceCream", IceCreamSchema)
+const IceCream = mongoose.model<IceCreamInterface>("IceCream", IceCreamSchema)
 
 export default IceCream
