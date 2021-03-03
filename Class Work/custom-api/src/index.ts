@@ -1,7 +1,9 @@
-import express from "express"
+import express, { RequestHandler } from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
 import helmet from "helmet"
+import cookieParser from "cookie-parser"
+import jwt from "jsonwebtoken"
 import rootHandler from "./handlers"
 import router from "./routes"
 import "./config/databaseSetup"
@@ -15,6 +17,22 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(helmet())
 app.use(cors())
+app.use(cookieParser())
+// app.use(expressValidator())
+const checkAuth: RequestHandler = (req, res, next) => {
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+    req.user = null
+  } else {
+    const token = req.cookies.nToken
+    const { payload } = jwt.decode(token, { complete: true }) as { payload: string }
+    req.user = payload
+  }
+
+  res.locals.currentUser = req.user
+
+  next()
+}
+app.use(checkAuth)
 
 // Routes
 app.get("/", rootHandler)

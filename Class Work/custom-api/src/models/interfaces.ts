@@ -13,3 +13,15 @@ export interface VendorInterface extends Document {
   foundedYear?: string
   iceCreams: IceCreamInterface["_id"]
 }
+
+export interface UserTokenInterface {
+  payload: string
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: string
+    }
+  }
+}
