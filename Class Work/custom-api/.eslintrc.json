@@ -10,6 +10,8 @@
   },
   "rules": {
     "@typescript-eslint/comma-dangle": ["off"],
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "no-underscore-dangle": ["off"],
+    "func-names": ["off"]
   }
 }

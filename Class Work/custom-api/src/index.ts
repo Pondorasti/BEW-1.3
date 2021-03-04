@@ -1,4 +1,5 @@
 import express, { RequestHandler } from "express"
+// import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cors from "cors"
 import helmet from "helmet"
@@ -9,6 +10,7 @@ import router from "./routes"
 import "./config/databaseSetup"
 
 // Setup
+// dotenv.config()
 const app = express()
 const port = process.env.PORT || 8000 // Database Setup
 
