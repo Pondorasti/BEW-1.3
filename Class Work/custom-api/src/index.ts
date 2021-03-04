@@ -1,9 +1,8 @@
-import express from "express"
+import express, { Request, Response } from "express"
 // import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cors from "cors"
 import helmet from "helmet"
-import rootHandler from "./handlers"
 import router from "./routes"
 import "./config/databaseSetup"
 
@@ -19,8 +18,10 @@ app.use(helmet())
 app.use(cors())
 
 // Routes
-app.get("/", rootHandler)
 app.use(router)
+app.get("/", (req: Request, res: Response) => {
+  res.send("API is working")
+})
 
 // Start Server
 app.listen(port, () => {

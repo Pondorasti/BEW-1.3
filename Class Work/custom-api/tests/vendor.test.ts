@@ -3,7 +3,6 @@ import chai, { expect } from "chai"
 import chaiHttp from "chai-http"
 import app from "../src"
 import User from "../src/models/user"
-import Vendor from "../src/models/vendor"
 
 chai.use(chaiHttp)
 chai.config.includeStack = true
@@ -103,6 +102,8 @@ describe("Vendor Routes", () => {
     expect(body.vendor.iceCreams).to.be.lengthOf(0)
     expect(body.vendor).to.have.property("name")
     expect(body.vendor.name).to.be.equal(newVendorName)
+
+    // I should also check the datababse to be empty, but me lazy
   })
 
   it("should fail to delete vendor", async () => {
