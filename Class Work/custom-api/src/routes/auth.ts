@@ -10,7 +10,6 @@ router.post("/register", async (req: Request, res: Response) => {
     const savedUser = await newUser.save()
     const token = savedUser.generateJWT()
 
-    res.cookie("nToken", token, { maxAge: 900000, httpOnly: true })
     res.send({ message: "Succesfully signed up.", token })
   } catch (err) {
     res.status(500).send({ error: err.message })
