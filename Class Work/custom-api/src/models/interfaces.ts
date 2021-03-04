@@ -17,11 +17,3 @@ export interface VendorInterface extends Document {
 export interface UserTokenInterface {
   payload: string
 }
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: string
-    }
-  }
-}

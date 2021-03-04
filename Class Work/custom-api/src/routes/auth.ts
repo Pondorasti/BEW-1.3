@@ -17,12 +17,6 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 })
 
-// Logout user
-router.get("/logout", (req: Request, res: Response) => {
-  res.clearCookie("nToken")
-  res.send({ message: "Succesfully logged out." })
-})
-
 // Login user
 router.post("/login", async (req: Request, res: Response) => {
   try {
