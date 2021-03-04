@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express"
 import Vendor from "../models/vendor"
+import authRequired from "./util/auth"
 
 const router = express.Router()
 
@@ -25,7 +26,7 @@ router.get("/:vendorId", async (req: Request, res: Response) => {
 })
 
 // Add new Vendor
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authRequired, async (req: Request, res: Response) => {
   try {
     const vendor = new Vendor(req.body)
     const result = await vendor.save()
@@ -36,7 +37,7 @@ router.post("/", async (req: Request, res: Response) => {
 })
 
 // Update Vendor by id
-router.put("/:vendorId", async (req: Request, res: Response) => {
+router.put("/:vendorId", authRequired, async (req: Request, res: Response) => {
   try {
     const { vendorId } = req.params
     await Vendor.findByIdAndUpdate(vendorId, req.body)
@@ -48,7 +49,7 @@ router.put("/:vendorId", async (req: Request, res: Response) => {
 })
 
 // Delete Vendor by id
-router.delete("/:vendorId", async (req: Request, res: Response) => {
+router.delete("/:vendorId", authRequired, async (req: Request, res: Response) => {
   try {
     const { vendorId } = req.params
     const deletedVendor = await Vendor.findByIdAndDelete(vendorId)

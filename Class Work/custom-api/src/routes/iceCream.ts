@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express"
 import Vendor from "../models/vendor"
 import IceCream from "../models/iceCream"
+import authRequired from "./util/auth"
 
 const router = express.Router()
 
@@ -26,7 +27,7 @@ router.get("/:iceCreamId", async (req: Request, res: Response) => {
 })
 
 // Add new Ice Cream
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authRequired, async (req: Request, res: Response) => {
   try {
     const iceCream = new IceCream(req.body)
     const result = await iceCream.save()
@@ -42,7 +43,7 @@ router.post("/", async (req: Request, res: Response) => {
 })
 
 // Update Ice Cream by id
-router.put("/:iceCreamId", async (req: Request, res: Response) => {
+router.put("/:iceCreamId", authRequired, async (req: Request, res: Response) => {
   try {
     const { iceCreamId } = req.params
     await IceCream.findByIdAndUpdate(iceCreamId, req.body)
@@ -54,7 +55,7 @@ router.put("/:iceCreamId", async (req: Request, res: Response) => {
 })
 
 // Delete Ice Cream by id
-router.delete("/:iceCreamId", async (req: Request, res: Response) => {
+router.delete("/:iceCreamId", authRequired, async (req: Request, res: Response) => {
   try {
     const { iceCreamId } = req.params
     const deletedIceCream = await IceCream.findByIdAndDelete(iceCreamId)
