@@ -18,16 +18,16 @@ describe("Auth Routes", () => {
   })
 
   it("should register user", async () => {
-    const res = await chai.request(app).post("/auth/register").send(testUser)
+    const { body } = await chai.request(app).post("/auth/register").send(testUser)
 
-    expect(res.body).to.have.property("message", "Succesfully signed up.")
-    expect(res.body).to.have.property("token")
+    expect(body).to.have.property("message", "Succesfully signed up.")
+    expect(body).to.have.property("token")
   })
 
   it("should login user", async () => {
-    const res = await chai.request(app).post("/auth/login").send(testUser)
+    const { body } = await chai.request(app).post("/auth/login").send(testUser)
 
-    expect(res.body).to.have.property("message", "Succesfully signed in.")
-    expect(res.body).to.have.property("token")
+    expect(body).to.have.property("message", "Succesfully signed in.")
+    expect(body).to.have.property("token")
   })
 })
