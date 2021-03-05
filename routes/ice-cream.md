@@ -1,12 +1,12 @@
-# Vendor
+# Ice Cream
 
-{% api-method method="get" host="localhost:8000" path="/vendor" %}
+{% api-method method="get" host="localhost:8000" path="/icecream" %}
 {% api-method-summary %}
-Get all vendors
+Get all ice creams
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns all the Vendors from the database.
+Returns all Ice Creams from the database.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -20,13 +20,19 @@ Returns all the Vendors from the database.
 
 ```
 {
-    "vendors": [
+    "iceCreams": [
         {
-            "iceCreams": [],
-            "_id": "603dd8b5ec5cd46f11d1e049",
-            "name": "haagen-dazs",
+            "tags": [
+                "sweet",
+                "crunchy"
+            ],
+            "_id": "603dd2f387bd5d6b89e03d3f",
+            "name": "test 2",
+            "rating": 4,
+            "vendor": "603d43451cdd394f82125343",
             "__v": 0
         }
+    ]
 }
 ```
 {% endapi-method-response-example %}
@@ -34,20 +40,20 @@ Returns all the Vendors from the database.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="localhost:8000" path="/vendor/:vendorId" %}
+{% api-method method="get" host="localhost:8000" path="/icecream/:iceCreamId" %}
 {% api-method-summary %}
-Get vendor by id
+Get ice cream by id
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns the Vendor with the specified id.
+Returns the Ice Cream with the specified id.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
-{% api-method-parameter name="vendorId" type="string" required=true %}
-The id associated with the vendor.
+{% api-method-parameter name="iceCreamId" type="string" required=true %}
+The id associated with the ice cream.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 {% endapi-method-request %}
@@ -60,10 +66,15 @@ The id associated with the vendor.
 
 ```
 {
-    "vendor": {
-        "iceCreams": [],
-        "_id": "6040907f09c90709f8fc0c02",
-        "name": "testest",
+    "iceCream": {
+        "tags": [
+            "sweet",
+            "crunchy"
+        ],
+        "_id": "603dd2f387bd5d6b89e03d3f",
+        "name": "Peanut Butter Crunch",
+        "rating": 4,
+        "vendor": "603d43451cdd394f82125343",
         "__v": 0
     }
 }
@@ -73,30 +84,38 @@ The id associated with the vendor.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="post" host="localhost:8000" path="/vendor" %}
+{% api-method method="post" host="localhost:8000" path="/icecream" %}
 {% api-method-summary %}
-Add new vendor
+Add new ice cream
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Adds a new Vendor to the database
+Adds a new Ice Cream to the database.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-headers %}
-{% api-method-parameter name="Bearer Token" type="string" required=false %}
-Use the JWT Token returned from authentication.
+{% api-method-parameter name="Bearer Token" type="string" required=true %}
+Use the JWT Token returned from the authentication.
 {% endapi-method-parameter %}
 {% endapi-method-headers %}
 
 {% api-method-body-parameters %}
 {% api-method-parameter name="name" type="string" required=true %}
-Name of the vendor.
+The name of the ice cream.
 {% endapi-method-parameter %}
 
-{% api-method-parameter name="foundedYear" type="string" required=true %}
-The year the vendor was founded.
+{% api-method-parameter name="vendor" type="string" required=true %}
+The id of the vendor that manufactures this ice cream.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="tags" type="array" required=false %}
+An array of strings that represent tags.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="rating" type="number" required=false %}
+An integer between 1 and 5.
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -109,12 +128,29 @@ The year the vendor was founded.
 
 ```
 {
-    "vendor": {
-        "iceCreams": [],
-        "_id": "6041a9235769ba35abd6e389",
-        "name": "Ben&Jerry",
+    "iceCream": {
+        "tags": [
+            "strawberry",
+            "cheesy"
+        ],
+        "_id": "6041d0d95769ba35abd6e38b",
+        "name": "Strawberry Cheesecake",
+        "rating": 4,
+        "vendor": "603dd8b5ec5cd46f11d1e049",
         "__v": 0
     }
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=500 %}
+{% api-method-response-example-description %}
+Invalid vendor id.
+{% endapi-method-response-example-description %}
+
+```
+{
+    "error": "Cannot read property 'iceCreams' of null"
 }
 ```
 {% endapi-method-response-example %}
@@ -122,9 +158,9 @@ The year the vendor was founded.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="put" host="localhost:8000" path="/vendor/:vendorId" %}
+{% api-method method="put" host="localhost:8000" path="/icecream/:iceCreamId" %}
 {% api-method-summary %}
-Update vendor by id
+Update ice cream by id
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -133,14 +169,8 @@ Updates the Vendor with the specified id.
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="vendorId" type="string" required=true %}
-The id associated with the vendor.
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
 {% api-method-headers %}
-{% api-method-parameter name="Bearer Token" type="string" required=true %}
+{% api-method-parameter name="Bearer Token" type="string" required=false %}
 Use the JWT Token returned from authentication.
 {% endapi-method-parameter %}
 {% endapi-method-headers %}
@@ -153,23 +183,16 @@ Use the JWT Token returned from authentication.
 {% endapi-method-response-example-description %}
 
 ```
-{
-    "vendor": {
-        "iceCreams": [],
-        "_id": "6041a9235769ba35abd6e389",
-        "name": "Ben&Jerrys",
-        "__v": 0
-    }
-}
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="delete" host="localhost:8000" path="/vendor/:vendorId" %}
+{% api-method method="get" host="" path="" %}
 {% api-method-summary %}
-Delete vendor by id
+
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -179,16 +202,10 @@ Delete vendor by id
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
-{% api-method-parameter name="vendorId" type="string" required=false %}
-The id associated with the vendor.
+{% api-method-parameter name="" type="string" required=false %}
+
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
-
-{% api-method-headers %}
-{% api-method-parameter name="Bearer Token" type="string" required=false %}
-Use the JWT Token returned from authentitication.
-{% endapi-method-parameter %}
-{% endapi-method-headers %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -198,27 +215,7 @@ Use the JWT Token returned from authentitication.
 {% endapi-method-response-example-description %}
 
 ```
-{
-    "message": "Succesfully deleted.",
-    "vendor": {
-        "iceCreams": [],
-        "_id": "6041a9235769ba35abd6e389",
-        "name": "Ben&Jerrys",
-        "__v": 0
-    }
-}
-```
-{% endapi-method-response-example %}
 
-{% api-method-response-example httpCode=400 %}
-{% api-method-response-example-description %}
-Invalid vendor id.
-{% endapi-method-response-example-description %}
-
-```
-{
-    "error": "Vendor does not exist."
-}
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}

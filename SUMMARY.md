@@ -5,5 +5,6 @@
 ## Routes
 
 * [Authentification](routes/authentification.md)
-* [Vendors](routes/vendors.md)
+* [Vendor](routes/vendors.md)
+* [Ice Cream](routes/ice-cream.md)
 

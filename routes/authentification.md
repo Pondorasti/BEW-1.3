@@ -13,11 +13,11 @@ Creates a new user from the given username and password.
 {% api-method-request %}
 {% api-method-body-parameters %}
 {% api-method-parameter name="Username" type="string" required=true %}
-
+Use a unique username
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="Password" type="string" required=true %}
-
+Minimum 8 characters long, and needs at least one special character \(.!@$%&\).
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}

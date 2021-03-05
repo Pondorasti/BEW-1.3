@@ -6,7 +6,7 @@ This is a simple API for storing and retrieving Ice Cream information. Made with
 
 ### Usage
 
-As of now, the API hasn't been deployed on the WEB and can only be run on your local machine by using the following command.
+As of now, the API hasn't been deployed on the WEB and can only be used on your local machine by using the following command.
 
 ```text
  npm run start 
