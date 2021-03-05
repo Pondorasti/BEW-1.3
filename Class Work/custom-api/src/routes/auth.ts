@@ -34,7 +34,6 @@ router.post("/login", async (req: Request, res: Response) => {
       }
 
       const token = user.generateJWT()
-      res.cookie("nToken", token, { maxAge: 900000, httpOnly: true })
       res.send({ message: "Succesfully signed in.", token })
     })
   } catch (err) {
