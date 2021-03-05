@@ -2,7 +2,7 @@
 
 ## API Reference
 
-This is a simple API for storing and retrieving Ice Cream information. Made with `Nodejs`, `Express` and `Typescript`.
+This is a simple API for storing and retrieving Ice Cream information. Made with `Nodejs`, `Express` and `Typescript`. It follows REST patterns and other industry standards like the use of JWT.
 
 ### Usage
 
