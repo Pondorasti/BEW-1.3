@@ -169,6 +169,12 @@ Updates the Vendor with the specified id.
 
 {% api-method-spec %}
 {% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="iceCreamId" type="string" required=false %}
+The id associated with the ice cream.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+
 {% api-method-headers %}
 {% api-method-parameter name="Bearer Token" type="string" required=false %}
 Use the JWT Token returned from authentication.
@@ -190,9 +196,9 @@ Use the JWT Token returned from authentication.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="" path="" %}
+{% api-method method="delete" host="localhost:8000" path="/icecream/:iceCreamId" %}
 {% api-method-summary %}
-
+Delete ice cream by id
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -202,10 +208,16 @@ Use the JWT Token returned from authentication.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
-
+{% api-method-parameter name="iceCreamId" type="string" required=false %}
+The id associated with the ice cream.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
+
+{% api-method-headers %}
+{% api-method-parameter name="Bearer Token" type="string" required=false %}
+Use the JWT Token returned from authentication.
+{% endapi-method-parameter %}
+{% endapi-method-headers %}
 {% endapi-method-request %}
 
 {% api-method-response %}
