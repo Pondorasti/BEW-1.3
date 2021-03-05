@@ -1,6 +1,6 @@
 # Authentification
 
-{% api-method method="get" host="localhost:8000" path="/register" %}
+{% api-method method="get" host="localhost:8000" path="/auth/register" %}
 {% api-method-summary %}
 Register new user
 {% endapi-method-summary %}
@@ -12,11 +12,11 @@ Creates a new user from the given username and password.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-body-parameters %}
-{% api-method-parameter name="Username" type="string" required=false %}
+{% api-method-parameter name="Username" type="string" required=true %}
 
 {% endapi-method-parameter %}
 
-{% api-method-parameter name="Password" type="string" required=false %}
+{% api-method-parameter name="Password" type="string" required=true %}
 
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
@@ -39,7 +39,7 @@ Creates a new user from the given username and password.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="localhost:8000" path="/login" %}
+{% api-method method="get" host="localhost:8000" path="/auth/login" %}
 {% api-method-summary %}
 Login user
 {% endapi-method-summary %}
@@ -51,11 +51,11 @@ Logins an existing user.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-body-parameters %}
-{% api-method-parameter name="Username" type="string" required=false %}
+{% api-method-parameter name="Username" type="string" required=true %}
 
 {% endapi-method-parameter %}
 
-{% api-method-parameter name="Password" type="string" required=false %}
+{% api-method-parameter name="Password" type="string" required=true %}
 
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}

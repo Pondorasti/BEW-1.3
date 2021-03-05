@@ -1,5 +1,9 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Authentification](authentification.md)
+
+## Routes
+
+* [Authentification](routes/authentification.md)
+* [Vendors](routes/vendors.md)
 
